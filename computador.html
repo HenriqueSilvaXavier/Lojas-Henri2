@@ -1,0 +1,768 @@
+<TYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produto</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+
+        @font-face {
+            font-family: "Eczar";
+            src: url(Eczar-VariableFont_wght.ttf) 
+        }
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            background-image: url(laranja.jpg);
+        }
+        h1 {
+            color: yellow;
+            margin: 15px;
+            font-family: "Eczar", sans-serif;
+        }
+        #input-container{
+            margin: auto;
+            transform: translate(-20%, 0);
+        }
+        input#procurar{
+            margin-left: 5px;
+            width: 280px;
+            height: 30px;
+        }
+        img#pesquisa{
+            width: 15px;
+            transform: translate(-160%, 20%);
+        }
+        img#perfil{
+            width: 28px;
+            border-radius: 100%;
+            transform: translate(-100%);
+        }
+        img#coracao{
+            width: 28px;
+            transform: translate(-50%);
+        }
+        ul{
+            display: flex;
+        }
+        li{
+            margin-right: 35px;
+        }
+        #menu{
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+        }
+        nav{
+            display: flex;
+            align-items: center;
+        }
+        .segundaLinha{
+            display:none;
+        }
+        input#voltar{
+            margin-right: 30px;
+        }
+        div#categorias>ul>li{
+            margin:0;
+            display: block;
+        }
+        div#categorias>ul {
+            column-count: 2;
+            column-gap: 100px;
+            display: block;
+        }
+        h2{
+            margin: 20px;
+            text-align: center;
+            font-family: sans-serif;
+        }
+        div#categorias{
+            background-color: burlywood;
+            margin: 20px;
+            height: 300px;
+            display:none;
+            position: absolute;
+            top: 70px;
+            left: 30px;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 999;
+            border-radius: 10px;
+            width: 400px;
+            grid-column: 1;
+            grid-row: 2 / span 2;
+        }
+        img#computador1{
+            width: 500px;
+            height: 374.867724867px;
+        }
+        .selecionado{
+            border: 5px solid brown;
+            border-radius: 10px;
+        }
+        div#aoLado{
+            display: flex;
+        }
+        #outrasImagens{
+            display: block;
+        }
+        .foto{
+            height: 100px;
+            display: block;
+            margin: auto;
+        }
+        #aoLado2{
+            display: block;
+            padding: 20px;
+        }
+        .estrela{
+            color: gold
+        }
+        input#comprar{
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        input#favoritarBotao{
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            padding-left: 30px;
+            cursor: pointer;
+            border-radius: 5px; 
+            margin-right: 0;
+        }
+        img#coracao2{
+            width: 20px;
+            transform: translate(-510%, 30%);
+        }
+        input#compartilhar{
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            padding-left: 30px;
+            cursor: pointer;
+            border-radius: 5px; 
+            margin-left: 0;
+            transform: translate(-18%);
+        }
+        img#compartilhar{
+            width: 25px;
+            transform: translate(-605%, 30%);
+        }
+        img#relacionados1{
+            width: 220px;
+            margin: auto;
+        }
+        div#relacionados1{
+            padding: 20px;
+            border: 1px solid brown
+        }
+        .cinza{
+            color:grey;
+        }
+        div#relacionados{
+            display: flex;
+            width: 100%;
+            overflow-y: auto;
+            background-color: orange;
+        }
+        div#relacionados2{
+            padding: 20px;
+            border: 1px solid brown;
+        }
+        img#relacionados2{
+            width: 250px;
+            display: block;
+            margin: auto;
+        }
+        img#relacionados3{
+            width: 300px;
+            margin: auto;
+        }
+        div#relacionados3{
+            padding: 20px;
+            border: 1px solid brown;
+
+        }
+        img#relacionados4{
+            width: 300px;
+            margin: auto;
+        }
+        div#relacionados4{
+            padding: 20px;
+            border: 1px solid brown
+        }
+        p.inline{
+            display: inline;
+        }
+        footer {
+            background-color: #333; 
+            color: white;
+            padding: 20px; 
+            text-align: center; 
+            width: 96.86%;
+            bottom: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        img#favoritarRelacionados1{
+            width: 28px;
+            transform: translate(0, -900%);
+        }
+        img#favoritarRelacionados2{
+            width: 28px;
+            transform: translate(50%, -990%);
+        }
+        img#favoritarRelacionados3{
+            width: 28px;
+            transform: translate(0, -970%);
+        }
+        img#favoritarRelacionados4{
+            width: 28px;
+            transform: translate(0, -890%);
+        }
+        div#redesSociais img{
+            height: 30px;
+            border-radius: 100%;
+            margin: auto;
+        }
+        div#redesSociais{
+            background-color: #333;
+            padding: 20px;
+            width: 96.86%;
+            margin: auto;
+            margin-top: 7px;
+            margin-bottom: 7px;
+        }
+        img#whatsapp{
+            transform: translate(0, 30%);
+        }
+        h2#fale{
+            color: white;
+        }
+        div#redesSociais>p{
+            text-align: center;
+            color: white
+        }
+        #redes{
+            margin-left: 545px
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html">
+            <h1>Lojas Henri</h1>
+        </a>
+        <div id="input-container">
+            <input type="search" name="procurar" id="procurar">
+            <img src="pesquisa.jpg" alt="Símbolo de pesquisa" id="pesquisa">
+        </div>
+        <abbr title="Conta"><img src="foto.jpg" alt="foto de perfil" id="perfil"></abbr>
+        <a href="favoritos.html"><abbr title="Favoritos"><img src="heart.png" alt="Símbolo de um coração" id="coracao"></abbr></a>
+    </header>
+    <nav>
+        <img src="Hamburger_icon.svg.png" alt="Símbolo do menu hamburguino" id="menu" onclick="verMenu()">
+        <ul type="none">
+            <li class="primeiraLinha">Eletrodomésticos</li>
+            <li class="primeiraLinha">Móveis e decoração</li>
+            <li class="primeiraLinha">Bebês</li>
+            <li class="primeiraLinha">Arte e artesanato</li>
+            <li class="primeiraLinha">Artigos para Pet</li>
+            <li class="primeiraLinha">Eco-Friendly</li>
+            <li class="primeiraLinha">Intrumentos musicais</li>
+            <li class="primeiraLinha">Brinquedos</li>
+            <li class="primeiraLinha">Livros</li>
+
+            <input type="button" value="&#8592" onclick="voltar()" class="segundaLinha" id="voltar">
+            <li class="segundaLinha">Automotivos</li>
+            <li class="segundaLinha">Brinquedos</li>
+            <li class="segundaLinha">Saúde</li>
+            <li class="segundaLinha">Beleza</li>
+            <li class="segundaLinha">Esportes e Lazer</li>
+            <li class="segundaLinha">Papelaria</li>
+            <li class="segundaLinha">Celulares</li>
+            <li class="segundaLinha">Moda</li>
+            <li class="segundaLinha">Gamer</li>
+            <li class="segundaLinha">Material escolar</li>
+            <li class="segundaLinha">Alimentação e bebidas</li>
+            <li class="segundaLinha">Limpeza</li>
+
+        </ul>
+        <input type="button" value="&#8594" onclick="verMais()" class="primeiraLinha">
+
+    </nav>
+    <div id="categorias">
+        <h2 id="titulo-categorias">Categorias</h2>
+        <ul>
+            <li>Eletrodomésticos</li>
+            <li>Móveis</li>
+            <li>Bebês</li>
+            <li>Arte e artesanato</li>
+            <li>Artigos para Pet</li>
+            <li>Eco-Friendly</li>
+            <li>Intrumentos musicais</li>
+            <li>Brinquedos</li>
+            <li>Livros</li>
+            <li>Automotivos</li>
+            <li>Brinquedos</li>
+            <li>Saúde</li>
+            <li>Beleza</li>
+            <li>Livros</li>
+            <li>Esportes</li>
+            <li>Papelaria</li>
+            <li>Celulares</li>
+            <li>Moda</li>
+            <li>Gamer</li>
+            <li>Material escolar</li>
+            <li>Alimentação e Bebidas</li>
+            <li>Limpeza
+        </ul>
+    </div>
+    <main>
+        <h2>Computador Completo Dual-Core 4Gb Ssd 120Gb Monitor 15 Monitor - 120 gb - Desktop - Real - 4 gb - Intel dual core - Windows 10 - 15 - Completo - Bivolt
+        </h2>
+        <div id="aoLado" style="background-color: orange"> 
+            <div id="outrasImagens">
+                <img src="produto1.png" alt="Imagem de um computador" class="foto selecionado" onmouseover="trocarImagem(this)">
+                <img src="computador.jpg" alt="Imagem de um computador" class="foto" onmouseover="trocarImagem(this)">
+                <img src="computador3.jpg" alt="imagem de um computador" class="foto" onmouseover="trocarImagem(this)">
+                <img src="computador4.jpg" alt="Imagem de um computador" class="foto" onmouseover="trocarImagem(this)">
+            </div>
+            <img src="produto1.png" alt="Imagem do computador" id="computador1">
+            <div id="aoLado2">
+                <p>
+                    <span class="estrela">&#9733;</span>
+                    <span class="estrela">&#9733;</span>
+                    <span class="estrela">&#9733;</span>
+                    <span class="estrela">&#9733;</span>
+                    <span class="estrela">&#9733;</span>
+                    <ins>Avaliar o produto</ins>
+                </p>
+                <p>Eletrodomésticos, Computadores</p>
+                <p class="inline" style="color: #02B126"><del style="color: red;">R$ 989,00</del>      R$ 890,10</p>
+                <p class="inline">(10% de desconto)</p>
+                <p>Ou ou R$ 999,98 em 8x de R$ 125,00 sem juros                </p>
+                <input type="button" value="Comprar" id="comprar">
+                <input type="button" value="Favoritar" id="favoritarBotao">
+                <img src="heart3.png" alt="Símbolo branco de um coração" id="coracao2">
+                <input type="button" value="Compartilhar" id="compartilhar">
+                <img src="compartilhar.png" alt="Símbolo branco de compartilhar" id="compartilhar">
+                <p>Atualize sua experiência de computação com nosso incrível Computador Completo Dual-Core. Equipado com um processador Intel Dual-Core e 4GB de RAM, este computador oferece desempenho confiável para suas necessidades diárias de computação.
+
+                    O SSD de 120GB proporciona inicializações rápidas do sistema e tempos de carregamento mais curtos para seus aplicativos favoritos. Você terá espaço suficiente para armazenar seus arquivos essenciais sem se preocupar com a falta de espaço.
+                    
+                    O monitor de 15" oferece uma visualização nítida e clara de suas tarefas, tornando a multitarefa uma brisa. Seja para trabalhar, estudar ou entretenimento, este computador é uma escolha versátil e eficiente.
+                    
+                    Além disso, vem pré-instalado com o sistema operacional Windows 10 para uma experiência de usuário familiar e intuitiva. E, com a compatibilidade bivolt, você pode usá-lo em diferentes ambientes sem preocupações.
+                    
+                    Complete sua configuração de computador com o Computador Completo Dual-Core 4Gb SSD 120GB com Monitor 15" e eleve sua produtividade e entretenimento a novos patamares!
+                    
+                    Sinta-se à vontade para ajustar ou personalizar a descrição conforme necessário para se adequar à sua loja virtual.</p>
+            </div>
+        </div>
+        <h2>Relacionados</h2>
+        <div id="relacionados">
+            <div id="relacionados1">
+                <img src="relacionados1.jpg" alt="Imagem de um computador" id="relacionados1">
+                <img src="heart.png" alt="Favoritar" id="favoritarRelacionados1" class="heart" onmouseover="mudarImagem()" onmouseout="resetarImagem()" onclick="favoritarRelacionados()">
+
+                <h3>Inspiron 24 All in One
+                </h3>
+                <p>
+                    <span class="estrela">&#9733;</span>
+                        <span class="estrela">&#9733;</span>
+                        <span class="estrela">&#9733;</span>
+                        <span class="estrela">&#9733;</span>
+                        <span class="estrela cinza">&#9733;</span>
+                        Eletrodomésticos, Computadores
+                </p>
+                <p>R$ 4.698,00</p>
+            </div>
+            <div id="relacionados2">
+                <img src="relacionados2.jpg" alt="Imagem de um computador gamer" id="relacionados2">
+                <img src="heart.png" alt="Favoritar" id="favoritarRelacionados2" class="heart" onmouseover="mudarImagem2()" onmouseout="resetarImagem2()" onclick="favoritar2()">
+                <h3>Computador Gamer Pc Completo Intel Core i5 8GB SSD 512GB Kit Gamer RGB Com Headset Monitor 20" Strong Tech
+                </h3>
+                <p>
+                    <span class="estrela">&#9733;</span>
+                        <span class="estrela">&#9733;</span>
+                        <span class="estrela">&#9733;</span>
+                        <span class="estrela">&#9733;</span>
+                        <span class="estrela cinza">&#9733;</span>
+                    Eletrodomésticos, Computadores, Gamer
+                </p>
+                <p>R$ 1.829,00</p>
+            </div>
+            <div id="relacionados3">
+                <img src="relacionados3.jpg" alt="Imagem de um cabo USB" id="relacionados3">
+                <img src="heart.png" alt="Favoritar" id="favoritarRelacionados3" class="heart" onmouseover="mudarImagem3()" onmouseout="resetarImagem3()" onclick="favoritar3()">
+                <h3>Cabo USB para Micro USB PlusCable PC-USB3004 Preto - USB para Micro USB 2.0 3 Metros Taxa de transferência de até 480Mbps
+                </h3>
+                <p>
+                    <span class="estrela">&#9733;</span>
+                        <span class="estrela">&#9733;</span>
+                        <span class="estrela">&#9733;</span>
+                        <span class="estrela">&#9733;</span>
+                        <span class="estrela">&#9733;</span>
+                    Eletrodomésticos
+                </p>
+                <p>R$ 25,90</p>
+            </div>
+            <div id="relacionados4">
+                <img src="relacionados4.jpg" alt="Imagem de um Notebook" id="relacionados4">
+                <img src="heart.png" alt="Favoritar" id="favoritarRelacionados4" class="heart" onmouseover="mudarImagem4()" onmouseout="resetarImagem4()" onclick="favoritar4()">
+                <h3>Notebook Gamer G15
+                </h3>
+                <p>
+                    <span class="estrela">&#9733;</span>
+                        <span class="estrela">&#9733;</span>
+                        <span class="estrela">&#9733;</span>
+                        <span class="estrela">&#9733;</span>
+                        <span class="estrela cinza">&#9733;</span>
+                    Eletrodomésticos, Notebook, Gamer
+                </p>
+                <p>R$ 5.398,00
+                </p>
+            </div>
+        </div>
+    </div>
+    </main>
+    <div id="redesSociais">
+        <h2 id="fale">Fale conosco</h2>
+        <p>(81)8552-1110 <img src="whatsapp.png" alt="Símbolo do WhatsApp" id="whatsapp"></p>
+        <div id="redes">
+            <img src="instagram.png" alt="Símbolo do instagram">
+            <img src="x.png" alt="Símbolo do X">
+            <img src="youtube.png" alt="Símbolo do Youtube">
+            <img src="facebook.png" alt="Símbolo do Facebook">
+        </div>
+    </div>
+    <footer>
+        &copy; 2024 Henrique Silva Xavier. Todos os direitos reservados.
+    </footer>
+</body>
+<script>
+    var c;
+    if(localStorage.getItem("contagem")==null){
+        c=-1;
+    }
+    else{
+        c=parseInt(localStorage.getItem("contagem"));
+    };
+    var clicadoRelacionados=false;
+    var clicadoRelacionados2=false;
+    var clicadoRelacionados3=false;
+    var clicadoRelacionados4=false;
+    var clicadoRelacionados5=false;
+    var clicadoRelacionados6=false;
+
+    function verMais(){
+        var primeiraLinha = document.querySelectorAll(".primeiraLinha");
+        var segundaLinha = document.querySelectorAll(".segundaLinha");
+        
+        primeiraLinha.forEach(function(item) {
+            item.style.display = "none"; // Oculta categorias da primeira linha
+        });
+
+        segundaLinha.forEach(function(item) {
+            item.style.display = "inline-block"; 
+        });
+
+        var nav = document.querySelector("nav");
+        nav.scrollIntoView({ behavior: 'smooth' });
+    }
+    function voltar(){
+        var primeiraLinha = document.querySelectorAll(".primeiraLinha");
+        var segundaLinha = document.querySelectorAll(".segundaLinha");
+        
+        primeiraLinha.forEach(function(item) {
+            item.style.display = "inline-block"; 
+        });
+
+        segundaLinha.forEach(function(item) {
+            item.style.display = "none"; 
+        });
+
+        var nav = document.querySelector("nav");
+        nav.scrollIntoView({ behavior: 'smooth' });
+    }
+    function mudarImagem() {
+        document.getElementById("favoritar1").src = "heart2.png";
+    }
+
+    function resetarImagem() {
+        if (!clicado){
+            document.getElementById("favoritar1").src = "heart.png";
+        }
+    }
+    var clicadoRelacionados = localStorage.getItem('favoritadoRelacionados1') === 'true';
+    function favoritarRelacionados() {
+        clicadoRelacionados = !clicadoRelacionados;
+        var img = document.getElementById("favoritarRelacionados1");
+        img.src = clicadoRelacionados ? "heart2.png" : "heart.png";
+        localStorage.setItem('favoritadoRelacionados1', clicadoRelacionados);
+        var paiDaImagem1= document.getElementById('favoritarRelacionados1').parentNode;
+        localStorage.setItem('cloneRelacionados1', paiDaImagem1.outerHTML);
+        if (clicadoRelacionados==true){
+            c=c+1;
+        } else{
+            c=c-1;
+        }
+        localStorage.setItem("contagem", c);
+        console.log("c=", c);
+        localStorage.setItem("posicaoRelacionados1", c);
+        localStorage.setItem("Rrelacionados1", true);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var img= document.getElementById("favoritarRelacionados1");
+        if (localStorage.getItem('favoritadoRelacionados1') === 'true') {
+            img.src = "heart2.png";
+        } else {
+            img.src = "heart.png";
+        }
+    });
+    function mudarImagem2() {
+        document.getElementById("favoritar2").src = "heart2.png";
+    }
+
+    function resetarImagem2() {
+        if (!clicado){
+            document.getElementById("favoritar2").src = "heart.png";
+        }
+    }
+    var clicado = localStorage.getItem('favoritado2') === 'true';
+    function favoritar2() {
+        clicado = !clicado;
+        var img = document.getElementById("favoritar2");
+        img.src = clicado ? "heart2.png" : "heart.png";
+        localStorage.setItem('favoritadoComputador2', clicado);
+        var paiDaImagem2= document.getElementById('favoritar2').parentNode;
+        localStorage.setItem('cloneComputador2', paiDaImagem2.outerHTML);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var img = document.getElementById("favoritar2");
+        if (localStorage.getItem('favoritadoComputador2') === 'true') {
+            img.src = "heart2.png";
+        } else {
+            img.src = "heart.png";
+        }
+    });
+    function mudarImagem3() {
+        document.getElementById("favoritar3").src = "heart2.png";
+    }
+
+    function resetarImagem3() {
+        if (!clicado){
+            document.getElementById("favoritar3").src = "heart.png";
+        }
+    }
+    var clicado = localStorage.getItem('favoritado3') === 'true';
+    function favoritar3() {
+        clicado = !clicado;
+        var img = document.getElementById("favoritar3");
+        img.src = clicado ? "heart2.png" : "heart.png";
+        localStorage.setItem('favoritadoComputador3', clicado);
+        var paiDaImagem3= document.getElementById('favoritar3').parentNode;
+        localStorage.setItem('cloneComputador3', paiDaImagem3.outerHTML);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var img = document.getElementById("favoritar3");
+        if (localStorage.getItem('favoritadoComputador3') === 'true') {
+            img.src = "heart2.png";
+        } else {
+            img.src = "heart.png";
+        }
+    });
+    function mudarImagem4() {
+        document.getElementById("favoritar4").src = "heart2.png";
+    }
+
+    function resetarImagem4() {
+        if (!clicado){
+            document.getElementById("favoritar4").src = "heart.png";
+        }
+    }
+    var clicado = localStorage.getItem('favoritado4') === 'true';
+    function favoritar4() {
+        clicado = !clicado;
+        var img = document.getElementById("favoritar4");
+        img.src = clicado ? "heart2.png" : "heart.png";
+        localStorage.setItem('favoritadoComputador4', clicado);
+        var paiDaImagem4= document.getElementById('favoritar4').parentNode;
+        localStorage.setItem('cloneComputador4', paiDaImagem4.outerHTML);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var img = document.getElementById("favoritar4");
+        if (localStorage.getItem('favoritadoComputador4') === 'true') {
+            img.src = "heart2.png";
+        } else {
+            img.src = "heart.png";
+        }
+    });
+    function mudarImagem5() {
+        document.getElementById("favoritar5").src = "heart2.png";
+    }
+
+    function resetarImagem5() {
+        if (!clicado){
+            document.getElementById("favoritar5").src = "heart.png";
+        }
+    }
+    function favoritar5(){
+        if (!clicado){
+            clicado=true;
+        }
+        else{
+            clicado=false;
+        }
+        document.getElementById("favoritar5").src = clicado ? "heart2.png" : "heart.png";
+    }
+    function mudarImagem6() {
+        document.getElementById("favoritar6").src = "heart2.png";
+    }
+
+    function resetarImagem6() {
+        if (!clicado){
+            document.getElementById("favoritar6").src = "heart.png";
+        }
+    }
+    function favoritar6(){
+        if (!clicado){
+            clicado=true;
+        }
+        else{
+            clicado=false;
+        }
+        document.getElementById("favoritar6").src = clicado ? "heart2.png" : "heart.png";
+    }
+    function mudarImagem7() {
+        document.getElementById("favoritar7").src = "heart2.png";
+    }
+
+    function resetarImagem7() {
+        if (!clicado){
+            document.getElementById("favoritar7").src = "heart.png";
+        }
+    }
+    function favoritar7(){
+        if (!clicado){
+            clicado=true;
+        }
+        else{
+            clicado=false;
+        }
+        document.getElementById("favoritar7").src = clicado ? "heart2.png" : "heart.png";
+    }
+    function mudarImagem8() {
+        document.getElementById("favoritar8").src = "heart2.png";
+    }
+
+    function resetarImagem8() {
+        if (!clicado){
+            document.getElementById("favoritar8").src = "heart.png";
+        }
+    }
+    function favoritar8(){
+        if (!clicado){
+            clicado=true;
+        }
+        else{
+            clicado=false;
+        }
+        document.getElementById("favoritar8").src = clicado ? "heart2.png" : "heart.png";
+    }
+    function mudarImagem9() {
+        document.getElementById("favoritar9").src = "heart2.png";
+    }
+
+    function resetarImagem9() {
+        if (!clicado){
+            document.getElementById("favoritar9").src = "heart.png";
+        }
+    }
+    function favoritar9(){
+        if (!clicado){
+            clicado=true;
+        }
+        else{
+            clicado=false;
+        }
+        document.getElementById("favoritar9").src = clicado ? "heart2.png" : "heart.png";
+    }
+    function mudarImagem10() {
+        document.getElementById("favoritar10").src = "heart2.png";
+    }
+
+    function resetarImagem10() {
+        if (!clicado){
+            document.getElementById("favoritar10").src = "heart.png";
+        }
+    }
+    function favoritar10(){
+        if (!clicado){
+            clicado=true;
+        }
+        else{
+            clicado=false;
+        }
+        document.getElementById("favoritar10").src = clicado ? "heart2.png" : "heart.png";
+    }
+    function mudarImagem11() {
+        document.getElementById("favoritar11").src = "heart2.png";
+    }
+
+    function resetarImagem11() {
+        if (!clicado){
+            document.getElementById("favoritar11").src = "heart.png";
+        }
+    }
+    function favoritar11(){
+        if (!clicado){
+            clicado=true;
+        }
+        else{
+            clicado=false;
+        }
+        document.getElementById("favoritar11").src = clicado ? "heart2.png" : "heart.png";
+    }
+
+    localStorage.setItem("contagem", c);
+
+    function verMenu(){
+        var categorias = document.getElementById("categorias");
+        if (categorias.style.display === "none") {
+            categorias.style.display = "block";
+        } else {
+            categorias.style.display = "none";
+        }
+    }
+    function trocarImagem(element) {
+        var imagens = document.querySelectorAll('.foto');
+        imagens.forEach(function(img) {
+            img.classList.remove('selecionado');
+        });
+        element.classList.add('selecionado');
+
+        var src = element.getAttribute('src');
+        document.getElementById('computador1').setAttribute('src', src);
+    }
+</script>
+</html>
