@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favoritos</title>
+    <style>
+        @font-face {
+            font-family: "Eczar";
+            src: url(Eczar-VariableFont_wght.ttf) 
+        }
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            background-image: url(laranja.jpg);
+        }
+        h1 {
+            color: yellow;
+            margin: 15px;
+            font-family: "Eczar", sans-serif;
+        }
+        #input-container{
+            margin: auto;
+            transform: translate(-20%, 0);
+        }
+        input#procurar{
+            margin-left: 5px;
+            width: 280px;
+            height: 30px;
+        }
+        img#pesquisa{
+            width: 15px;
+            transform: translate(-160%, 20%);
+        }
+        img#perfil{
+            width: 28px;
+            border-radius: 100%;
+            transform: translate(-100%);
+        }
+        img#coracao{
+            width: 28px;
+            transform: translate(-50%);
+        }
+        ul{
+            display: flex;
+        }
+        li{
+            margin-right: 35px;
+        }
+        #menu{
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+        }
+        nav{
+            display: flex;
+            align-items: center;
+        }
+        .segundaLinha{
+            display:none;
+        }
+        input#voltar{
+            margin-right: 30px;
+        }
+        div#categorias>ul>li{
+            margin:0;
+            display: block;
+        }
+        h2{
+            margin: 20px;
+        }
+        div#container{
+            width: 100%;
+            margin:0;
+        }
+        div#produto1{
+            width: 200px;
+            padding: 20px;
+            border: 1px solid brown;
+        }
+        img#produto1{
+            width: 200px;
+        }
+        img#favoritar1{
+            width: 28px;
+            transform: translate(0, -630%);
+        }
+        div#container{
+            display: flex;
+            background-color:orange;
+            overflow-y: auto;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        div#categorias{
+            background-color: burlywood;
+            margin: 20px;
+            height: 300px;
+            display:none;
+            position: absolute;
+            top: 70px;
+            left: 30px;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 999;
+            border-radius: 10px;
+            width: 400px;
+            grid-column: 1;
+            grid-row: 2 / span 2;
+        }
+        h2{
+            text-align: center;
+        }
+        div#produtos{
+            display: flex;
+            background-color:orange;
+            overflow-y: auto;
+        }
+        div#produto1{
+            width: 200px;
+            padding: 20px;
+            border: 1px solid brown;
+        }
+        img#produto1{
+            width: 200px;
+        }
+        h3{
+            margin: 5px;
+            font-size: 1rem;
+        }
+        .estrela{
+            color: gold;
+        }
+        span.ultimo{
+            margin-right: 8px;
+            color: gold;
+        }
+        img#produto2{
+            width:155px;
+            display: block;
+            margin: auto;
+        }
+        div#produto2{
+            width: 260x;
+            padding: 20px;
+            border: 1px solid brown;
+
+        }
+        div#produto3{
+            width: 230px;
+            padding: 20px;
+            border: 1px solid brown;
+
+        }
+        img#produto3{
+            width: 200px;
+        }
+        img#produto4{
+            width: 230px;
+        }
+        div#produto4{
+            width: 230px;
+            height: 340px;
+            padding: 20px;
+            padding-bottom: 149px;
+            border: 1px solid brown;
+        }
+        img#produto5{
+            width: 250px;
+        }
+        div#produto5{
+            width: 280px;
+            height: 100%;
+            padding: 20px;
+            padding-bottom: 87.5px;
+            border: 1px solid brown;
+        }
+        img#produto6{
+            width: 280px;
+        }
+        div#produto6{
+            width: 290px;
+            padding: 20px;
+            padding-bottom: 4px;
+            border: 1px solid brown;
+        }
+        div#ofertas{
+            display: flex;
+            background-color: orange;
+            overflow-y: auto;
+        }
+        img#bicicleta{
+            width: 200px;
+        }
+        div#bicicleta{
+            width: 230px;
+            padding:20px;
+            border: 1px solid brown;
+        }
+        img#tapete{
+            width: 200px;
+        }
+        div#tapete{
+            width: 230px;
+            margin:0;
+            padding:20px;
+            border: 1px solid brown;
+        }
+        img#maquiagem{
+            width: 240px;
+        }
+        div#maquiagem{
+            width: 260px;
+            padding: 20px;
+            border: 1px solid brown;
+        }
+        img#tenis{
+            width: 180px;
+        }
+        div#tenis{
+            width: 200px;
+            padding: 20px;
+            border: 1px solid brown;
+        }
+        img#tv{
+            width: 240px;
+        }
+        div#tv{
+            width: 275px;
+            padding: 20px;
+            border: 1px solid brown;
+        }
+        img#favoritar1{
+            width: 28px;
+            transform: translate(0, -630%);
+        }
+        img#favoritar2{
+            width: 28px;
+            transform: translate(90%, -900%);
+        }
+        img#favoritar3{
+            width: 28px;
+            transform: translate(0, -830%);
+        }
+        img#favoritar4{
+            width: 28px;
+            transform: translate(0, -950%);
+        }
+        img#favoritar5{
+            width: 28px;
+            transform: translate(0, -780%);
+        }
+        img#favoritar6{
+            width: 28px;
+            transform: translate(0, -850%);
+        }
+        #duna{
+            width: 190px;
+        }
+        img#favoritar7{
+            width: 28px;
+            transform: translate(10%, -830%);
+        }
+        img#favoritar8{
+            width: 28px;
+            transform: translate(10%, -830%);
+        }
+        img#favoritar9{
+            width: 28px;
+            transform: translate(10%, -750%);
+        }
+        img#favoritar10{
+            width: 28px;
+            transform: translate(10%, -750%);
+        }
+        img#favoritar11{
+            width: 28px;
+            transform: translate(10%, -730%);
+        }
+        div#categorias>ul {
+            column-count: 2;
+            column-gap: 100px;
+            display: block;
+        }
+        a{
+        text-decoration: none;
+        color: black;
+    }
+    footer {
+        background-color: #333; 
+        color: white;
+        padding: 20px; 
+        text-align: center; 
+        width: 96.86%;
+        bottom: 0;
+    }
+    img#relacionados1{
+            width: 220px;
+            display:block;
+            margin: auto;
+        }
+        div#relacionados1{
+            padding: 20px;
+            border: 1px solid brown;
+        }
+        .cinza{
+            color:grey;
+        }
+        div#relacionados{
+            display: flex;
+            width: 100%;
+            overflow-y: auto;
+            background-color: orange;
+        }
+        div#relacionados2{
+            padding: 20px;
+            border: 1px solid brown;
+        }
+        img#relacionados2{
+            width: 250px;
+            display: block;
+            margin: auto;
+        }
+        img#relacionados3{
+            width: 300px;
+            margin: auto;
+        }
+        div#relacionados3{
+            padding: 20px;
+            border: 1px solid brown;
+
+        }
+        img#relacionados4{
+            width: 300px;
+            margin: auto;
+        }
+        div#relacionados4{
+            padding: 20px;
+            border: 1px solid brown
+        }
+        p.inline{
+            display: inline;
+        }
+        footer {
+            background-color: #333; 
+            color: white;
+            padding: 20px; 
+            text-align: center; 
+            width: 96.86%;
+            bottom: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        img#favoritarRelacionados1{
+            width: 28px;
+            transform: translate(150%, -900%);
+        }
+        img#favoritarRelacionados2{
+            width: 28px;
+            transform: translate(50%, -990%);
+        }
+        img#favoritarRelacionados3{
+            width: 28px;
+            transform: translate(0, -970%);
+        }
+        img#favoritarRelacionados4{
+            width: 28px;
+            transform: translate(0, -890%);
+        }
+        div#redesSociais img{
+            height: 30px;
+            border-radius: 100%;
+            margin: auto;
+        }
+    div#redesSociais img{
+            height: 30px;
+            border-radius: 100%;
+            margin: auto;
+        }
+        div#redesSociais{
+            background-color: #333;
+            padding: 20px;
+            width: 96.86%;
+            margin: auto;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        img#whatsapp{
+            transform: translate(0, 30%);
+        }
+        h2#fale{
+            color: white;
+        }
+        div#redesSociais>p{
+            text-align: center;
+            color: white
+        }
+        #redes{
+            margin-left: 43vw
+        }
+        #explicacao{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html">
+            <h1>Lojas Henri</h1>
+        </a>
+        <div id="input-container">
+            <input type="search" name="procurar" id="procurar">
+            <img src="pesquisa.jpg" alt="Símbolo de pesquisa" id="pesquisa">
+        </div>
+        <abbr title="Conta"><img src="foto.jpg" alt="foto de perfil" id="perfil"></abbr>
+        <a href="favoritos.html"><abbr title="Favoritos"><img src="heart.png" alt="Símbolo de um coração" id="coracao"></abbr></a>
+    </header>
+    <nav>
+        <img src="Hamburger_icon.svg.png" alt="Símbolo do menu hamburguino" id="menu" onclick="verMenu()">
+        <ul type="none">
+            <li class="primeiraLinha">Eletrodomésticos</li>
+            <li class="primeiraLinha">Móveis e decoração</li>
+            <li class="primeiraLinha">Bebês</li>
+            <li class="primeiraLinha">Arte e artesanato</li>
+            <li class="primeiraLinha">Artigos para Pet</li>
+            <li class="primeiraLinha">Eco-Friendly</li>
+            <li class="primeiraLinha">Intrumentos musicais</li>
+            <li class="primeiraLinha">Brinquedos</li>
+            <li class="primeiraLinha">Livros</li>
+
+            <input type="button" value="&#8592" onclick="voltar()" class="segundaLinha" id="voltar">
+            <li class="segundaLinha">Automotivos</li>
+            <li class="segundaLinha">Brinquedos</li>
+            <li class="segundaLinha">Saúde</li>
+            <li class="segundaLinha">Beleza</li>
+            <li class="segundaLinha">Esportes e Lazer</li>
+            <li class="segundaLinha">Papelaria</li>
+            <li class="segundaLinha">Celulares</li>
+            <li class="segundaLinha">Moda</li>
+            <li class="segundaLinha">Gamer</li>
+            <li class="segundaLinha">Material escolar</li>
+            <li class="segundaLinha">Alimentação e bebidas</li>
+            <li class="segundaLinha">Limpeza</li>
+
+        </ul>
+        <input type="button" value="&#8594" onclick="verMais()" class="primeiraLinha">
+
+    </nav>
+    <div id="categorias">
+        <h2 id="titulo-categorias">Categorias</h2>
+        <ul>
+            <li>Eletrodomésticos</li>
+            <li>Móveis</li>
+            <li>Bebês</li>
+            <li>Arte e artesanato</li>
+            <li>Artigos para Pet</li>
+            <li>Eco-Friendly</li>
+            <li>Intrumentos musicais</li>
+            <li>Brinquedos</li>
+            <li>Livros</li>
+            <li>Automotivos</li>
+            <li>Brinquedos</li>
+            <li>Saúde</li>
+            <li>Beleza</li>
+            <li>Livros</li>
+            <li>Esportes</li>
+            <li>Papelaria</li>
+            <li>Celulares</li>
+            <li>Moda</li>
+            <li>Gamer</li>
+            <li>Material escolar</li>
+            <li>Alimentação e Bebidas</li>
+            <li>Limpeza
+        </ul>
+    </div>
+    <h2>Favoritos</h2>
+    <p id="explicacao">Produtos que você indicou aos favoritos.</p>
+    <div id="container">
+        <ul></ul>
+    </div>
+    <div id="redesSociais">
+        <h2 id="fale">Fale conosco</h2>
+        <p>(81)8552-1110 <img src="whatsapp.png" alt="Símbolo do WhatsApp" id="whatsapp"></p>
+        <div id="redes">
+            <img src="instagram.png" alt="Símbolo do instagram">
+            <img src="x.png" alt="Símbolo do X">
+            <img src="youtube.png" alt="Símbolo do Youtube">
+            <img src="facebook.png" alt="Símbolo do Facebook">
+        </div>
+    </div>
+    <footer>
+        &copy; 2024 Henrique Silva Xavier. Todos os direitos reservados.
+    </footer>
+</body>
+<script>
+    let c2 = 0;
+const array = [];
+
+// Função para manipular a exibição de linhas
+function toggleLinhas() {
+    document.querySelectorAll(".primeiraLinha").forEach(item => item.style.display = "none");
+    document.querySelectorAll(".segundaLinha").forEach(item => item.style.display = "inline-block");
+    document.querySelector("nav").scrollIntoView({ behavior: 'smooth' });
+}
+
+function voltar() {
+    document.querySelectorAll(".primeiraLinha").forEach(item => item.style.display = "inline-block");
+    document.querySelectorAll(".segundaLinha").forEach(item => item.style.display = "none");
+    document.querySelector("nav").scrollIntoView({ behavior: 'smooth' });
+}
+
+// Função para alternar a visibilidade do menu
+function verMenu() {
+    const categorias = document.getElementById("categorias");
+    categorias.style.display = categorias.style.display === "none" ? "block" : "none";
+}
+
+// Função para favoritar um produto
+async function favoritar(id) {
+    const img = document.getElementById(`favoritar${id}`);
+    let clicado = img.src.includes("heart2.png");
+
+    try {
+        if (clicado) {
+            // Desfavoritar (DELETE)
+            await fetch(`/favoritos/${id}`, { method: 'DELETE' });
+            img.src = "heart.png";
+        } else {
+            // Favoritar (POST)
+            const userId = 1; // Substitua pelo userId real
+            await fetch('/favoritos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, userId })
+            });
+            img.src = "heart2.png";
+        }
+    } catch (erro) {
+        console.error(`Erro ao ${clicado ? 'desfavoritar' : 'favoritar'} produto ${id}:`, erro);
+    }
+}
+
+// Função para carregar os produtos favoritados de um usuário
+async function carregarFavoritos() {
+    try {
+        const userId = 1; // Substitua pelo userId real
+        const resposta = await fetch(`/favoritos?userId=${userId}`);
+        const favoritos = await resposta.json(); // Exemplo: [1, 3, 7]
+        
+        favoritos.forEach(id => {
+            const img = document.getElementById(`favoritar${id}`);
+            if (img) img.src = 'heart2.png';
+        });
+    } catch (erro) {
+        console.error('Erro ao carregar favoritos:', erro);
+    }
+}
+
+// Funções de hover (mudança temporária do ícone)
+function mudarImagem(id) {
+    const img = document.getElementById(`favoritar${id}`);
+    if (!img.src.includes("heart2.png")) img.src = "heart2.png";
+}
+
+function resetarImagem(id) {
+    const img = document.getElementById(`favoritar${id}`);
+    if (img.dataset.favoritado !== 'true') img.src = "heart.png";
+}
+
+// Carrega os favoritos ao carregar a página
+document.addEventListener('DOMContentLoaded', async function () {
+    await carregarFavoritos();
+
+    for (let i = 1; i <= 10; i++) {
+        const img = document.getElementById(`favoritar${i}`);
+        if (!img) continue;
+
+        img.onmouseover = () => mudarImagem(i);
+        img.onmouseout = () => carregarFavoritos(); // Para garantir que reflita o estado real
+        img.onclick = () => favoritar(i);
+    }
+});
+
+</script>
+</html>

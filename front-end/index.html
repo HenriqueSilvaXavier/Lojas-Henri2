@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Início</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #4a2c2a;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    #input-container {
+      display: flex;
+      align-items: center;
+    }
+
+    #procurar {
+      padding: 5px;
+      font-size: 16px;
+    }
+
+    #pesquisa {
+      width: 24px;
+      height: 24px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    #perfil {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    #produtos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .produto {
+      border: 1px solid brown;
+      padding: 20px;
+      width: 250px;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .fotoProduto {
+      width: 100%;
+      height: auto;
+    }
+
+    /* Ajuste para a imagem do coração ficar pequena e no canto superior esquerdo */
+    .favorito {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 30px;  /* Definindo um tamanho menor */
+      height: 30px; /* Definindo um tamanho menor */
+      cursor: pointer;
+    }
+
+    footer {
+      background-color: #eee;
+      padding: 20px;
+      text-align: center;
+    }
+
+    #redesSociais {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    #redes {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 10px 0;
+    }
+
+    #redes img {
+      width: 30px;
+      height: 30px;
+    }
+
+    #whatsapp {
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Lojas Henri</h1>
+    <div id="input-container">
+      <input type="search" name="procurar" id="procurar" placeholder="Buscar produtos...">
+      <img src="pesquisa.jpg" alt="Símbolo de pesquisa" id="pesquisa">
+    </div>
+    <abbr title="Conta">
+      <img src="imagens/foto.jpg" alt="foto de perfil" id="perfil">
+    </abbr>
+  </header>
+
+  <main>
+    <section>
+      <h2>Produtos</h2>
+      <div id="produtos">
+        <!-- Produtos serão carregados dinamicamente -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div id="redesSociais">
+      <h2 id="fale">Fale conosco</h2>
+      <div id="redes">
+        <img src="facebook.jpg" alt="Facebook">
+        <img src="instagram.jpg" alt="Instagram">
+        <img src="whatsapp.jpg" alt="WhatsApp" id="whatsapp">
+      </div>
+      <p>© 2025 Lojas Henri. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+  async function carregarProdutos() {
+    const token = localStorage.getItem("token");
+
+    try {
+      const resposta = await fetch('http://localhost:3000/produtos', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      const produtos = await resposta.json();
+
+      const favoritosResponse = await fetch('http://localhost:3000/favoritos', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      const favoritos = await favoritosResponse.json(); // lista com os IDs dos produtos favoritados
+
+      const container = document.getElementById('produtos');
+      container.innerHTML = '';
+
+      produtos.forEach(produto => {
+        const div = document.createElement('div');
+        div.classList.add('produto');
+
+        const isFavorito = favoritos.includes(produto.id);
+
+        const heartImg = document.createElement('img');
+        heartImg.id = `favoritar${produto.id}`;
+        heartImg.classList.add('favorito');
+        heartImg.src = isFavorito ? 'imagens/heart2.png' : 'imagens/heart.png';
+
+        // Armazena estado de favorito localmente no elemento
+        heartImg.dataset.favoritado = isFavorito;
+
+        heartImg.addEventListener('mouseover', () => {
+          heartImg.src = 'imagens/heart2.png';
+        });
+
+        heartImg.addEventListener('mouseout', () => {
+          if (heartImg.dataset.favoritado === 'false') {
+            heartImg.src = 'imagens/heart.png';
+          }
+        });
+
+        heartImg.addEventListener('click', () => favoritar(produto.id));
+
+        const porcentagem = parseFloat(produto.promocao.replace('%', ''));
+        const precoPromocional = (produto.preco * (1 - porcentagem / 100)).toFixed(2);
+
+        if (porcentagem === 0) {
+          div.innerHTML = `
+            <img class="fotoProduto" src="${produto.imagem}" alt="${produto.nome}">
+            <h3>${produto.nome}</h3>
+            <p><span>R$ ${produto.preco.toFixed(2).replace(".", ",")}</span></p>
+            <p>${produto.categoria}</p>
+          `;
+        } else {
+          div.innerHTML = `
+            <img class="fotoProduto" src="${produto.imagem}" alt="${produto.nome}">
+            <h3>${produto.nome}</h3>
+            <p>
+              <span style="text-decoration: line-through; color: red;">R$ ${produto.preco.toFixed(2).replace(".", ",")}</span><br>
+              <strong style="color: green;">R$ ${precoPromocional.replace(".", ",")}</strong>
+            </p>
+            <p>${produto.categoria}</p>
+          `;
+        }
+
+        div.prepend(heartImg);
+        container.appendChild(div);
+      });
+
+    } catch (erro) {
+      console.error('Erro ao carregar produtos:', erro);
+      document.getElementById('produtos').innerHTML = '<p>Erro ao carregar produtos.</p>';
+    }
+  }
+
+  async function favoritar(produtoId) {
+    const token = localStorage.getItem("token");
+    const img = document.getElementById(`favoritar${produtoId}`);
+    const favoritado = img.dataset.favoritado === 'true';
+
+    try {
+      if (favoritado) {
+        // Remover dos favoritos
+        await fetch(`http://localhost:3000/favoritos/${produtoId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ produtoId })
+        });
+
+        img.src = 'imagens/heart.png';
+        img.dataset.favoritado = 'false';
+      } else {
+        // Adicionar aos favoritos
+        await fetch('http://localhost:3000/favoritos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ produtoId })
+        });
+
+        img.src = 'imagens/heart2.png';
+        img.dataset.favoritado = 'true';
+      }
+    } catch (erro) {
+      console.error(`Erro ao ${favoritado ? 'desfavoritar' : 'favoritar'} produto ${produtoId}:`, erro);
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', carregarProdutos);
+</script>
+
+</body>
+</html>
