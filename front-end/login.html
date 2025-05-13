@@ -39,7 +39,7 @@
         if (res.ok) {
           mensagem.textContent = dados.mensagem || "Login bem-sucedido!";
           mensagem.className = "sucesso";
-
+          console.log("Token:", dados.token);
           localStorage.setItem("token", dados.token);
 
           // Redireciona após 1 segundo

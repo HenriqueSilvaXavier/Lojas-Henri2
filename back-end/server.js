@@ -162,22 +162,34 @@ app.patch("/produtos/:id", (req, res) => {
 
 // -------------------- FAVORITOS ----------------------
 
-app.post("/favoritos", autenticar, (req, res) => {
+// Rota para adicionar ou remover produtos dos favoritos
+app.post('/favoritos', autenticar, (req, res) => {
   const userId = req.user.id;
   const { produtoId } = req.body;
 
-  if (!produtoId) {
-    return res.status(400).json({ erro: "Produto é necessário" });
-  }
+  // Verifica se o produto já está nos favoritos
+  const sqlCheck = `SELECT * FROM favoritos_users WHERE user_id = ? AND produto_id = ?`;
+  db.get(sqlCheck, [userId, produtoId], (err, row) => {
+    if (err) return res.status(500).json({ erro: 'Erro ao verificar favoritos' });
 
-  const sql = `INSERT OR IGNORE INTO favoritos_users (user_id, produto_id) VALUES (?, ?)`;
-  db.run(sql, [userId, produtoId], function (err) {
-    if (err) {
-      return res.status(500).json({ erro: "Erro ao favoritar produto" });
+    if (row) {
+      // Produto já favoritado, remover dos favoritos
+      const sqlDelete = `DELETE FROM favoritos_users WHERE user_id = ? AND produto_id = ?`;
+      db.run(sqlDelete, [userId, produtoId], (err) => {
+        if (err) return res.status(500).json({ erro: 'Erro ao desfavoritar produto' });
+        res.status(200).json({ mensagem: 'Produto removido dos favoritos' });
+      });
+    } else {
+      // Produto não favoritado, adicionar aos favoritos
+      const sqlInsert = `INSERT INTO favoritos_users (user_id, produto_id) VALUES (?, ?)`;
+      db.run(sqlInsert, [userId, produtoId], (err) => {
+        if (err) return res.status(500).json({ erro: 'Erro ao favoritar produto' });
+        res.status(200).json({ mensagem: 'Produto adicionado aos favoritos' });
+      });
     }
-    res.status(201).json({ id: this.lastID });
   });
 });
+
 
 app.delete("/favoritos/:produtoId", autenticar, (req, res) => {
   const { produtoId } = req.params;
@@ -195,23 +207,42 @@ app.delete("/favoritos/:produtoId", autenticar, (req, res) => {
   });
 });
 
-app.get("/favoritos", autenticar, (req, res) => {
+// Rota para obter os produtos favoritados de um usuário
+app.get('/favoritos', autenticar, (req, res) => {
   const userId = req.user.id;
 
-  const sql = `
+  const sql = `SELECT user_id, produto_id FROM favoritos_users WHERE user_id = ?`;
+  db.all(sql, [userId], (err, rows) => {
+    if (err) return res.status(500).json({ erro: 'Erro ao recuperar favoritos' });
+
+    const favoritos = rows.map(row => ({
+      userId: row.user_id,
+      produtoId: row.produto_id
+    }));
+
+    res.json(favoritos);
+  });
+});
+
+app.get("/favoritos/:userId", (req, res) => {
+  const userId = req.params.userId;
+
+  const query = `
     SELECT p.*
-    FROM favoritos_users fu
-    JOIN produtos p ON fu.produto_id = p.id
-    WHERE fu.user_id = ?
+    FROM favoritos_users f
+    JOIN produtos p ON f.produto_id = p.id
+    WHERE f.user_id = ?
   `;
 
-  db.all(sql, [userId], (err, rows) => {
+  db.all(query, [userId], (err, rows) => {
     if (err) {
       return res.status(500).json({ erro: "Erro ao buscar favoritos" });
     }
-    res.status(200).json(rows);
+
+    res.json(rows); // Retorna os produtos favoritos do usuário
   });
 });
+
 
 // -------------------- INICIAR SERVIDOR ----------------------
 

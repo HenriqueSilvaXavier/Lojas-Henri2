@@ -20,10 +20,6 @@
       padding: 20px;
     }
 
-    header h1 {
-      margin: 0;
-    }
-
     #input-container {
       display: flex;
       align-items: center;
@@ -45,6 +41,13 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
+    }
+    #favoritos-icone {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      right: 80px;
+      top: 40px;
     }
 
     main {
@@ -70,13 +73,12 @@
       height: auto;
     }
 
-    /* Ajuste para a imagem do coração ficar pequena e no canto superior esquerdo */
     .favorito {
       position: absolute;
       top: 10px;
       left: 10px;
-      width: 30px;  /* Definindo um tamanho menor */
-      height: 30px; /* Definindo um tamanho menor */
+      width: 30px;
+      height: 30px;
       cursor: pointer;
     }
 
@@ -84,11 +86,6 @@
       background-color: #eee;
       padding: 20px;
       text-align: center;
-    }
-
-    #redesSociais {
-      max-width: 800px;
-      margin: auto;
     }
 
     #redes {
@@ -112,9 +109,12 @@
   <header>
     <h1>Lojas Henri</h1>
     <div id="input-container">
-      <input type="search" name="procurar" id="procurar" placeholder="Buscar produtos...">
+      <input type="search" id="procurar" placeholder="Buscar produtos...">
       <img src="pesquisa.jpg" alt="Símbolo de pesquisa" id="pesquisa">
     </div>
+    <abbr title="Favoritos">
+      <a href="favoritos.html"><img src="imagens/heart.png" alt="foto de um coração" id="favoritos-icone"></a>
+    </abbr>
     <abbr title="Conta">
       <img src="imagens/foto.jpg" alt="foto de perfil" id="perfil">
     </abbr>
@@ -123,15 +123,13 @@
   <main>
     <section>
       <h2>Produtos</h2>
-      <div id="produtos">
-        <!-- Produtos serão carregados dinamicamente -->
-      </div>
+      <div id="produtos"></div>
     </section>
   </main>
 
   <footer>
     <div id="redesSociais">
-      <h2 id="fale">Fale conosco</h2>
+      <h2>Fale conosco</h2>
       <div id="redes">
         <img src="facebook.jpg" alt="Facebook">
         <img src="instagram.jpg" alt="Instagram">
@@ -141,128 +139,130 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+
   <script>
-  async function carregarProdutos() {
-    const token = localStorage.getItem("token");
+    async function carregarProdutos() {
+      const token = localStorage.getItem("token");
+      if (!token) return;
 
-    try {
-      const resposta = await fetch('http://localhost:3000/produtos', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      const decodedToken = jwt_decode(token);
+      console.log(decodedToken);
+      const userId = decodedToken.id;
 
-      const produtos = await resposta.json();
+      try {
+        const [resProdutos, resFavoritos] = await Promise.all([
+          fetch('http://localhost:3000/produtos', {
+            headers: { Authorization: `Bearer ${token}` }
+          }),
+          fetch('http://localhost:3000/favoritos', {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+        ]);
 
-      const favoritosResponse = await fetch('http://localhost:3000/favoritos', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+        const produtos = await resProdutos.json();
+        const favoritos = await resFavoritos.json();
+        console.log(favoritos);
+        console.log(token);
+        const favoritosDoUsuario = new Set(
+          favoritos
+            .filter(f => f.userId === Number(userId)) // <<<<< CORRIGIDO AQUI
+            .map(f => f.produtoId)
+        );
 
-      const favoritos = await favoritosResponse.json(); // lista com os IDs dos produtos favoritados
+        console.log(favoritosDoUsuario);
 
-      const container = document.getElementById('produtos');
-      container.innerHTML = '';
+        const container = document.getElementById('produtos');
+        container.innerHTML = '';
 
-      produtos.forEach(produto => {
-        const div = document.createElement('div');
-        div.classList.add('produto');
+        produtos.forEach(produto => {
+          const div = document.createElement('div');
+          div.className = 'produto';
 
-        const isFavorito = favoritos.includes(produto.id);
+          const isFavorito = favoritosDoUsuario.has(produto.id);
+          console.log(isFavorito);
 
-        const heartImg = document.createElement('img');
-        heartImg.id = `favoritar${produto.id}`;
-        heartImg.classList.add('favorito');
-        heartImg.src = isFavorito ? 'imagens/heart2.png' : 'imagens/heart.png';
+          const heartImg = document.createElement('img');
+          heartImg.className = 'favorito';
+          heartImg.id = `favoritar${produto.id}`;
+          heartImg.src = isFavorito ? 'imagens/heart2.png' : 'imagens/heart.png';
+          heartImg.dataset.favoritado = isFavorito;
 
-        // Armazena estado de favorito localmente no elemento
-        heartImg.dataset.favoritado = isFavorito;
+          heartImg.addEventListener('mouseover', () => {
+            heartImg.src = 'imagens/heart2.png';
+          });
 
-        heartImg.addEventListener('mouseover', () => {
-          heartImg.src = 'imagens/heart2.png';
-        });
+          heartImg.addEventListener('mouseout', () => {
+            if (heartImg.dataset.favoritado === 'false') {
+              heartImg.src = 'imagens/heart.png';
+            }
+          });
 
-        heartImg.addEventListener('mouseout', () => {
-          if (heartImg.dataset.favoritado === 'false') {
-            heartImg.src = 'imagens/heart.png';
-          }
-        });
+          heartImg.addEventListener('click', () => favoritar(produto.id));
 
-        heartImg.addEventListener('click', () => favoritar(produto.id));
+          const porcentagem = parseFloat(produto.promocao.replace('%', ''));
+          const precoPromocional = (produto.preco * (1 - porcentagem / 100)).toFixed(2);
 
-        const porcentagem = parseFloat(produto.promocao.replace('%', ''));
-        const precoPromocional = (produto.preco * (1 - porcentagem / 100)).toFixed(2);
-
-        if (porcentagem === 0) {
-          div.innerHTML = `
-            <img class="fotoProduto" src="${produto.imagem}" alt="${produto.nome}">
-            <h3>${produto.nome}</h3>
-            <p><span>R$ ${produto.preco.toFixed(2).replace(".", ",")}</span></p>
-            <p>${produto.categoria}</p>
-          `;
-        } else {
           div.innerHTML = `
             <img class="fotoProduto" src="${produto.imagem}" alt="${produto.nome}">
             <h3>${produto.nome}</h3>
             <p>
-              <span style="text-decoration: line-through; color: red;">R$ ${produto.preco.toFixed(2).replace(".", ",")}</span><br>
-              <strong style="color: green;">R$ ${precoPromocional.replace(".", ",")}</strong>
+              ${
+                porcentagem === 0
+                  ? `<span>R$ ${produto.preco.toFixed(2).replace('.', ',')}</span>`
+                  : `<span style="text-decoration: line-through; color: red;">R$ ${produto.preco.toFixed(2).replace('.', ',')}</span><br>
+                    <strong style="color: green;">R$ ${precoPromocional.replace('.', ',')}</strong>`
+              }
             </p>
             <p>${produto.categoria}</p>
           `;
-        }
 
-        div.prepend(heartImg);
-        container.appendChild(div);
-      });
-
-    } catch (erro) {
-      console.error('Erro ao carregar produtos:', erro);
-      document.getElementById('produtos').innerHTML = '<p>Erro ao carregar produtos.</p>';
-    }
-  }
-
-  async function favoritar(produtoId) {
-    const token = localStorage.getItem("token");
-    const img = document.getElementById(`favoritar${produtoId}`);
-    const favoritado = img.dataset.favoritado === 'true';
-
-    try {
-      if (favoritado) {
-        // Remover dos favoritos
-        await fetch(`http://localhost:3000/favoritos/${produtoId}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-          },
-          body: JSON.stringify({ produtoId })
+          div.prepend(heartImg);
+          container.appendChild(div);
         });
-
-        img.src = 'imagens/heart.png';
-        img.dataset.favoritado = 'false';
-      } else {
-        // Adicionar aos favoritos
-        await fetch('http://localhost:3000/favoritos', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-          },
-          body: JSON.stringify({ produtoId })
-        });
-
-        img.src = 'imagens/heart2.png';
-        img.dataset.favoritado = 'true';
+      } catch (erro) {
+        console.error("Erro ao carregar produtos:", erro);
       }
-    } catch (erro) {
-      console.error(`Erro ao ${favoritado ? 'desfavoritar' : 'favoritar'} produto ${produtoId}:`, erro);
     }
-  }
 
-  window.addEventListener('DOMContentLoaded', carregarProdutos);
-</script>
 
+    async function favoritar(produtoId) {
+      const token = localStorage.getItem("token");
+      const img = document.getElementById(`favoritar${produtoId}`);
+      const favoritado = img.dataset.favoritado === 'true';
+
+      try {
+        if (favoritado) {
+          await fetch(`http://localhost:3000/favoritos/${produtoId}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({ produtoId })
+          });
+
+          img.src = 'imagens/heart.png';
+          img.dataset.favoritado = 'false';
+        } else {
+          await fetch('http://localhost:3000/favoritos', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({ produtoId })
+          });
+
+          img.src = 'imagens/heart2.png';
+          img.dataset.favoritado = 'true';
+        }
+      } catch (erro) {
+        console.error("Erro ao atualizar favorito:", erro);
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", carregarProdutos);
+  </script>
 </body>
 </html>
