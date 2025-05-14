@@ -228,7 +228,7 @@ app.get("/favoritos/:userId", (req, res) => {
   const userId = req.params.userId;
 
   const query = `
-    SELECT p.*
+    SELECT f.id AS favorito_id, p.*
     FROM favoritos_users f
     JOIN produtos p ON f.produto_id = p.id
     WHERE f.user_id = ?
@@ -236,13 +236,14 @@ app.get("/favoritos/:userId", (req, res) => {
 
   db.all(query, [userId], (err, rows) => {
     if (err) {
+      console.error("Erro ao buscar favoritos:", err);
       return res.status(500).json({ erro: "Erro ao buscar favoritos" });
     }
 
-    res.json(rows); // Retorna os produtos favoritos do usuário
+    // Caso o usuário não tenha favoritos, retorna um array vazio
+    res.status(200).json(rows);
   });
 });
-
 
 // -------------------- INICIAR SERVIDOR ----------------------
 

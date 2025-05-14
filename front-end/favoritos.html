@@ -489,6 +489,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         const favoritos = await response.json();
+        favoritos.sort((a, b) => b.favorito_id - a.favorito_id);
+        console.log(favoritos);
         const container = document.getElementById("container");
 
         if (!container) {
